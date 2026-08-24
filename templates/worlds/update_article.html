@@ -1,0 +1,38 @@
+{% extends "worlds/layouts/base_form.html" %}
+
+{% block extra_title %} - Update Article{% endblock extra_title %}
+
+{% block article_stats %}
+<p class="text-center">{{ article.word_count }} word{{ article.word_count | pluralize }}.</p>
+<p> Last edited on <span class="font-bold">{{ article.updated_at | date:"jS F Y, G:i" }}</span></p>
+{% endblock article_stats %}
+
+{% block buttons %}
+<div class="flex justify-end gap-4">
+    <a hx-get="{% url 'delete_article' article.id %}" class="button danger" hx-target="#dialog"
+        hx-select="#delete_confirmation">Delete</a>
+    <button type="submit" class="button primary">Save</button>
+</div>
+{% endblock buttons %}
+
+{% block extra_body %}
+<div id="modal" class="fixed inset-0 z-10 hidden">
+    <div class="fixed inset-0 bg-black/30"></div>
+    <div class="relative z-10 flex min-h-full items-center justify-center p-4">
+        <div id="dialog" class="max-w-lg w-full bg-white rounded-md p-8 shadow-lg"></div>
+    </div>
+</div>
+{% endblock extra_body %}
+
+{% block page_js %}
+{{ block.super }}
+<script type="application/javascript">
+    const modal = document.getElementById("modal");
+
+    document.body.addEventListener("htmx:afterSwap", function (event) {
+        if (event.detail && event.detail.target && event.detail.target.id === "dialog") {
+            modal.classList.remove("hidden");
+        }
+    });
+</script>
+{% endblock page_js %}

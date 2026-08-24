@@ -1,0 +1,95 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+@tailwind utilities;
+
+.title {
+    @apply text-8xl font-semibold tracking-tight;
+}
+
+.subtitle {
+    @apply text-4xl font-medium tracking-tight;
+}
+
+.button {
+    @apply font-medium px-4 py-2 rounded-md;
+}
+
+.primary {
+    @apply shadow-sm border border-rose-900 text-white bg-rose-800 hover:bg-rose-900 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-rose-700;
+}
+
+.secondary {
+    @apply border border-teal-500 text-gray-700 bg-teal-300 hover:bg-teal-400 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-teal-700;
+}
+
+.danger {
+    @apply shadow-sm border border-mist-950 text-red-300 bg-mist-900 hover:bg-mist-950 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-mist-800;
+}
+
+.EasyMDEContainer,
+textarea {
+    @apply rounded-md border-gray-200 border-2 text-base leading-6;
+}
+
+.EasyMDEContainer:has(textarea:focus),
+textarea:focus {
+    @apply ring-1 ring-rose-800 border-rose-800;
+}
+
+.varbutStradas {
+    @apply w-full rounded-md border-gray-200 border-2 focus:ring-rose-800 focus:ring-2 p-4;
+}
+
+.form-field input {
+    @apply p-2 rounded-md w-full block shadow-sm focus:ring-rose-800 focus:border-rose-900 text-sm text-gray-800;
+}
+
+.error,
+.destructive {
+    @apply p-2 my-2 text-sm border border-mist-950 text-red-300 bg-mist-900 mb-4;
+}
+
+details>summary::-webkit-details-marker {
+    display: none;
+}
+
+input[type="radio"] {
+    @apply text-rose-900 ml-1 h-4 w-4 focus:ring-rose-800 focus:bg-rose-800;
+}
+
+.allauth-form input[type="email"] {
+    @apply p-2 rounded-md w-full block shadow-sm focus:ring-rose-800 focus:border-rose-900 text-sm
+}
+
+.allauth-form p:has(input[type="email"]) {
+    @apply text-left
+}
+
+.allauth-form p:has(input[type="email"]) label {
+    @apply hidden
+}
+
+.article-status-draft {
+    @apply bg-slate-300 p-2
+}
+
+.article-status-inprogress {
+    @apply bg-pink-300 pr-7
+}
+
+.article-status-published {
+    @apply bg-rose-300 pr-4
+}
+
+.article-status-draft1 {
+    @apply bg-slate-300 p-2
+}
+
+.article-status-inprogress1 {
+    @apply bg-pink-300 p-2
+}
+
+.article-status-published1 {
+    @apply bg-rose-300 p-2
+}

@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block extra_title %} - All Articles{% endblock extra_title %}
+
+{% block base_content %}
+<main class="max-w-7xl mx-auto mt-10 p-2 md:p-4 lg:p-10">
+    <h1 class="title mb-4">Welcome</h1>
+
+    <p class="text-xl mb-4">
+        You have created {{ user.article_count | intcomma }} article{{ user.article_count|pluralize }}
+        and written {{ user.written_words | intcomma }} word{{ user.written_words | pluralize}}
+    </p>
+    <div>
+        <a class="button primary inline-block mb-6 w-full sm:w-auto text-center" href="{% url 'create_article' %}">
+            Create a
+            new article</a>
+    </div>
+
+    <!--   <h2 class="subtitle mb-6">Articles</h2>-->
+
+    {% block results %}
+
+    <!--   <form method="GET" class="flex flex-row gap-3 mb-6">
+        <input type="search" value="{{ request.GET.search }}"
+            class="px-4 rounded-md text-black shadow-sm focus:ring-rose-800 focus:border-rose-800 sm:text-sm border-gray-300"
+            placeholder="Search for articles" name="search" hx-get="{{ request.path }}"
+            hx-trigger="input changed delay:500ms, search" hx-target="#article-results" hx-select="#article-results"
+            hx-indicator=".loading-icon" hx-disabled-elt="#search-button" hx-push-url="true">
+        <button id="search-button"
+            class="px-4 flex gap-1 button secondary items-center justify-center mx-2 my-2 disabled:cursor-not-allowed disabled:opacity-50"
+            type="submit">
+            <span class="search-icon">{% include "svgs/magnifier.svg" with class="w-6 h-6 mr-2" %}</span>
+            <span class="loading-icon hidden motion-safe:animate-spin">
+                {% include "svgs/loading.svg" with class="w-6 h-6 mr-2" %}</span>
+            Search
+        </button>
+        <a href="{% url 'home' %}" class="px-4 button secondary text-center my-2">Clear search</a>
+    </form>
+
+    <style>
+        #search-button:disabled span {
+            display: none;
+        }
+
+        .htmx-request.loading-icon {
+            display: inline-flex !important;
+        }
+    </style>-->
+
+    <!-- <div id="article-results">
+        {% if articles %}
+        <ul preload="mouseover">
+            {% for article in articles %}
+            <li>
+                <a class="text-2xl flex items-center"
+                    href="{% if article.creator == user %}{% url 'update_article' article.id %} {% else %} # {% endif %}">
+                    {{ article.title }}
+                    <span class="ml-2 px-4 py-0.5 text-xs rounded-sm uppercase article-status-{{article.status}}">
+                        {{ article.status }}</span>
+                </a>
+                <p class="text-sm">{{ article.content }}</p>
+            </li>
+            <br class="border border-rose-800">
+            {% endfor %}
+        </ul>
+        {% if is_paginated %}
+        <div class="flex flex-row justify-center items-center text-xl">
+            {% if page_obj.has_previous %}
+            <a class="mx-2 mt-1 rotate-180"
+                href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">
+                {% include "svgs/chevron.svg" with class="ml-1 h-7 w-7 border border-black rounded-md p-1" %}
+            </a>
+            {% endif %}
+            <span>Page {{ page_obj.number }} of {{ paginator.num_pages }}</span>
+            {% if page_obj.has_next %}
+            <a class="mx-2 mt-1"
+                href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">
+                {% include "svgs/chevron.svg" with class="mr-1 h-7 w-7 border border-black rounded-md p-1" %}
+            </a>
+            {% endif %}
+        </div>
+        {% endif %}
+        {% else %}
+        <p>You have no articles.</p>
+        {% endif %}
+    </div> -->
+    {% endblock results %}
+</main>
+{% endblock base_content %}

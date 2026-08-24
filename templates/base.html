@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Worlds{% block plus_title %}{% endblock plus_title %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'output.css' %}">
+    <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
+    <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@2.0.10"></script>
+
+    {% block extra_head %}
+    {% endblock extra_head %}
+</head>
+
+<body>
+    {% block body %}
+    {% url 'create_article' as create_new_url %}
+    {% url 'home' as your_articles_url %}
+    {% url 'account_email' as change_email_url %}
+    <nav class="px-10 py-4 border-b border-gray-300 shadow-md">
+        <div class="flex justify-end items-center gap-6 max-w-7x mx-auto">
+            {% if user.is_authenticated %}
+            <a class="button primary"
+                href="{% if request.path != create_new_url %}{{ create_new_url }}{% else %}#{% endif %}">Create
+                new article</a>
+            <a class=" button hover:bg-gray-200 hover:shadow-gray-300{% if request.path == your_articles_url %} font-semibold{% endif %}"
+                href="{{ your_articles_url }}">Articles</a>
+            <a class="button hover:bg-gray-200 hover:shadow-gray-300{% if request.path == change_email_url %} font-semibold{% endif %}"
+                href="{{ change_email_url }}">Change email</a>
+            <form method="POST" action="{% url 'account_logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="button hover:bg-gray-200 hover:shadow-gray-200">Log out</button>
+            </form>
+            {% else %}
+            <a class="button secondary text-sm" href="{% url 'account_login' %}">Log in</a>
+            <a class="button primary text-sm" href="{% url 'account_signup' %}">Sign up</a>
+            {% endif %}
+        </div>
+    </nav>
+    <div class="p-2 md:p-4 lg:p-6">
+        <div class="mt-2 flex justify-center text-gray-500 font-bold">
+            {% if messages %}
+            <ul class="mx-auto inline-block list-none space-y-2">
+                {% for message in messages %}
+                <li class="border p-2 border-gray-400 bg-gray-200 rounded-md text-center {{message.tags}}">{{ message }}
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <main class="p-10 mb-6">
+            {% block base_content %}
+            {% endblock base_content %}
+        </main>
+    </div>
+
+    {% endblock body %}
+    {% block extra_body %}
+
+    {% endblock extra_body %}
+    {% block page_js %}
+
+    {% endblock page_js %}
+</body>
+
+</html>
