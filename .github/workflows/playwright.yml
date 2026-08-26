@@ -20,6 +20,6 @@ jobs:
           'POSTGRES_USER=ci_user' \
           'POSTGRES_PASSWORD=ci_password' > .env.docker
     - name: Launch compose system
-      run: docker compose up -d
+      run: docker compose up -d --wait
     - name: Run Playwright tests
       run: docker compose exec web poetry run pytest
