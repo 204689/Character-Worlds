@@ -20,23 +20,7 @@ jobs:
           'POSTGRES_USER=ci_user' \
           'POSTGRES_PASSWORD=ci_password' > .env.docker
     - name: Launch compose system
-      run: docker compose up -d --wait
-    - name: Wait for Django
-      run: |
-        timeout 180 docker compose exec -T web poetry run python -c '
-        import socket
-        import time
-
-        deadline = time.time() + 180
-        while time.time() < deadline:
-            try:
-                with socket.create_connection(("127.0.0.1", 8000), timeout=2):
-                    break
-            except OSError:
-                time.sleep(2)
-        else:
-            raise SystemExit("Django did not start within 180 seconds")
-        '
+      run: docker compose up -d
     - name: Run Playwright tests
       run: docker compose exec web poetry run pytest
     - name: Show compose logs on failure
