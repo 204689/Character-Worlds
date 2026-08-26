@@ -28,7 +28,7 @@ ENTRYPOINT [ "/code/start-django.sh" ]
 
 FROM base AS production
 
-RUN poetry install --only main
+RUN poetry install --only main --no-root
 
 COPY . .
 RUN chmod 755 /code/start-django.sh
