@@ -26,8 +26,8 @@ services:
       test: [ "CMD", "python", "-c", "import socket; socket.create_connection(('127.0.0.1', 8000), 2).close()" ]
       interval: 5s
       timeout: 5s
-      retries: 12
-      start_period: 30s
+      retries: 30
+      start_period: 120s
     env_file:
       - ./.env.docker
     restart: unless-stopped
