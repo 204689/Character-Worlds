@@ -2,3 +2,8 @@ services:
   web:
     restart: "no"
     entrypoint: ["/bin/bash", "/code/start-django.sh"]
+    volumes:
+      - staticfiles_ci:/code/staticfiles
+
+volumes:
+  staticfiles_ci:
