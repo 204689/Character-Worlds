@@ -52,7 +52,10 @@ class UpdateArticleView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     context_object_name = "article"
 
     def test_func(self) -> bool | None:
-        return self.request.user == self.get_object().creator
+        return (
+            self.request.user.is_superuser
+            or self.request.user == self.get_object().creator
+        )
 
 
 class DeleteArticleView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -62,7 +65,10 @@ class DeleteArticleView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     context_object_name = "article"
 
     def test_func(self) -> bool | None:
-        return self.request.user == self.get_object().creator
+        return (
+                    self.request.user.is_superuser
+                    or self.request.user == self.get_object().creator
+                )
 
     def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
         messages.success(request, "Article deleted successfully.", extra_tags="destructive")
