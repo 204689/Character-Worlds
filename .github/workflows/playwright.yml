@@ -10,17 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v5
-#    - name: Create Docker environment file
- #     run: |
-  #      printf '%s\n' \
-   #       'DEBUG=True' \
-    #      'SECRET_KEY=ci-test-secret-key' \
-     #     'DATABASE_URL=postgresql://ci_user:ci_password@db:5432/ci_db' \
-      # #   'POSTGRES_DB=ci_db' \
-         # 'POSTGRES_USER=ci_user' \
-          #'POSTGRES_PASSWORD=ci_password' > .env.docker
+    - name: Create Docker environment file
+      run: |
+        printf '%s\n' \
+          'DEBUG=True' \
+          'SECRET_KEY=ci-test-secret-key' \
+          'DATABASE_URL=postgresql://ci_user:ci_password@db:5432/ci_db' \
+          'POSTGRES_DB=ci_db' \
+          'POSTGRES_USER=ci_user' \
+          'POSTGRES_PASSWORD=ci_password' > .env.docker
     - name: Launch compose system
-      run: docker compose up -d
+      run: docker compose up -d --wait
     - name: Run Playwright tests
       run: docker compose exec web poetry run pytest
     - name: Show compose logs on failure
