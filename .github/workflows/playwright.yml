@@ -21,6 +21,8 @@ jobs:
           'POSTGRES_PASSWORD=ci_password' > .env.docker
     - name: Launch compose system
       run: docker compose up -d --wait
+    - name: Wait for Django
+      run: timeout 180 bash -c 'until (echo > /dev/tcp/127.0.0.1/8000) 2>/dev/null; do sleep 2; done'
     - name: Run Playwright tests
       run: docker compose exec web poetry run pytest
     - name: Show compose logs on failure
