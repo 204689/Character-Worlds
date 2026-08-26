@@ -1,3 +1,4 @@
 services:
   web:
     restart: "no"
+    entrypoint: ["/bin/bash", "/code/start-django.sh"]
