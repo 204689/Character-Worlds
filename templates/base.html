@@ -21,7 +21,7 @@
     {% url 'create_article' as create_new_url %}
     {% url 'home' as your_articles_url %}
     {% url 'account_email' as change_email_url %}
-    <nav class="px-10 py-4 border-b border-gray-300 shadow-md">
+    <nav class="px-10 py-4 border-b border-gray-300 shadow-md m-2">
         <div class="flex justify-end items-center gap-6 max-w-7x mx-auto">
             {% if user.is_authenticated %}
             <a class="button primary"
@@ -52,7 +52,7 @@
             </ul>
             {% endif %}
         </div>
-        <main class="p-10 mb-6">
+        <main class="p-10 m-4 mb-6">
             {% block base_content %}
             {% endblock base_content %}
         </main>
